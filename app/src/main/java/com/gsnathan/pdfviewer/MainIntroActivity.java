@@ -31,6 +31,7 @@ import android.os.Bundle;
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.model.SliderPage;
+import com.jaredrummler.cyanea.prefs.CyaneaThemePickerActivity;
 
 import androidx.fragment.app.Fragment;
 
@@ -65,7 +66,7 @@ public class MainIntroActivity extends AppIntro {
         addSlide(AppIntroFragment.newInstance(third));
 
         showSkipButton(false);
-        askForPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+        askForPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
         showStatusBar(false);
         setNavBarColor("#2481a1");
     }

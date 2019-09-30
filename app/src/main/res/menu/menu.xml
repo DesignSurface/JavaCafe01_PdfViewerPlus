@@ -28,7 +28,19 @@
 
     <item
         android:id="@+id/action_about"
-        android:orderInCategory="1"
+        android:orderInCategory="3"
         android:title="@string/action_about"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        android:orderInCategory="2"
+        app:showAsAction="never"  />
+
+    <item
+        android:id="@+id/theme"
+        android:orderInCategory="1"
+        android:title="@string/theme_picker"
         app:showAsAction="never" />
 </menu>

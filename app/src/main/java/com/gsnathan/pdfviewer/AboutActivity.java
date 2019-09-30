@@ -24,17 +24,22 @@
 
 package com.gsnathan.pdfviewer;
 
+import android.os.Binder;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.franmontiel.attributionpresenter.AttributionPresenter;
 import com.franmontiel.attributionpresenter.entities.Attribution;
 import com.franmontiel.attributionpresenter.entities.License;
+import com.jaredrummler.cyanea.app.CyaneaAppCompatActivity;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends CyaneaAppCompatActivity {
 
     TextView versionView;   //shows the version
     private final String APP_VERSION_RELEASE = "Version " + Utils.getAppVersion();   //contains Version + the version number
@@ -51,13 +56,14 @@ public class AboutActivity extends AppCompatActivity {
 
     private void setUpToolBar() {
         setSupportActionBar(toolbar);
+        final long token = Binder.clearCallingIdentity();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.app_name);
+
     }
 
     private void initUI() {
         //initialize the textview
-        versionView = (TextView) findViewById(R.id.text_version);
+        versionView = (TextView) findViewById(R.id.versionTextView);
         //initialize the toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar_about);
 
@@ -76,12 +82,11 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void showLog(View v) {
-        LogFragment log = new LogFragment();
-        log.show(getSupportFragmentManager(), "Log Fragment");
+        Utils.showLog(this);
     }
 
     public void showPrivacy(View v) {
-        startActivity(Utils.navIntent(getApplicationContext(), PrivacyActivity.class));
+        startActivity(Utils.linkIntent("https://github.com/JavaCafe01/PdfViewer/blob/master/privacy_policy.md"));
     }
 
     public void showMaterial(View v) {
@@ -89,7 +94,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void showLicense(View v) {
-        startActivity(Utils.navIntent(getApplicationContext(), LicenseActivity.class));
+        startActivity(Utils.linkIntent("https://github.com/JavaCafe01/PdfViewer/blob/master/LICENSE"));
     }
 
     public void showLibraries(View v) {
@@ -166,10 +171,31 @@ public class AboutActivity extends AppCompatActivity {
                                 .build()
                 )
                 .addAttributions(
-                        new Attribution.Builder("ChangeLog Library")
-                                .addCopyrightNotice("Copyright 2013-2015 Gabriele Mariotti")
+                        new Attribution.Builder("WhatsNew")
+                                .addCopyrightNotice("Copyright 2017 Lizhaotailang")
+                                .addLicense(License.MIT)
+                                .setWebsite("https://github.com/TonnyL/WhatsNew")
+                                .build()
+                )
+                .addAttributions(
+                        new Attribution.Builder("Cyanea")
+                                .addCopyrightNotice("Copyright 2018 Jared Rummler")
                                 .addLicense(License.APACHE)
-                                .setWebsite("https://github.com/gabrielemariotti/changeloglib")
+                                .setWebsite("https://github.com/jaredrummler/Cyanea")
+                                .build()
+                )
+                .addAttributions(
+                        new Attribution.Builder("PhysicsLayout")
+                                .addCopyrightNotice("Copyright 2016 John Carlson")
+                                .addLicense(License.APACHE)
+                                .setWebsite("https://github.com/Jawnnypoo/PhysicsLayout")
+                                .build()
+                )
+                .addAttributions(
+                        new Attribution.Builder("fab-speed-dial")
+                                .addCopyrightNotice("Copyright 2016 Yavor Ivanov")
+                                .addLicense(License.APACHE)
+                                .setWebsite("https://github.com/yavski/fab-speed-dial")
                                 .build()
                 )
                 .build();
@@ -179,7 +205,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void emailDev(View v) {
-        startActivity(Utils.emailIntent("gokulswami@live.com", "Pdf Viewer Plus", APP_VERSION_RELEASE, "Send email..."));
+        startActivity(Utils.emailIntent("gokulswamilive@gmail.com", "Pdf Viewer Plus", APP_VERSION_RELEASE, "Send email..."));
     }
 
     public void navToGit(View v) {
@@ -187,10 +213,15 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void navToSourceCode(View v) {
-        startActivity(Utils.linkIntent("https://github.com/JavaCafe01/TorchLight"));
+        startActivity(Utils.linkIntent("https://github.com/JavaCafe01/PdfViewer"));
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 
-    public void showNotice(View v) {
-        Utils.showNotice(this);
-    }
 }

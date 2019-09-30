@@ -2,39 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gsnathan.pdfviewer">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name="MainActivity_"
-            android:theme="@style/AppTheme">
+        android:theme="@style/Theme.Cyanea.Light.DarkActionBar">
+
+        <activity
+            android:name=".MainActivity_"
+            android:theme="@style/Theme.Cyanea.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!--
-              Note: Intent matching isn't as easy as it looks at first sight.
-              All <data> tags are merged by Android! <intent-filter> tags are OR'ed
-           -->
-            <!-- Generic intent filter -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.EDIT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="application/pdf" />
-            </intent-filter>
-            <!--
-                Allow opening directly from browser for schemes http, https, and samba.
-                Matching with mimeTypes here would result in direct opening of pdfs without user interaction!!!
-            -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -47,7 +35,18 @@
                 <data android:scheme="https" />
                 <data android:pathPattern=".*\\.pdf" />
             </intent-filter>
-            <!-- To allow opening from file managers/content scheme based on file extension -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="*" />
+                <data android:scheme="smb" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:mimeType="application/pdf" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -57,55 +56,47 @@
                 <data android:host="*" />
                 <data android:scheme="file" />
                 <data android:scheme="content" />
-                <data android:mimeType="*/*" />
-                <!-- Workaround to match files in pathes with dots in them, like /cdcard/my.folder/test.pdf -->
                 <data android:pathPattern=".*\\.pdf" />
                 <data android:pathPattern=".*\\..*\\.pdf" />
                 <data android:pathPattern=".*\\..*\\..*\\.pdf" />
             </intent-filter>
-        </activity>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <!-- About -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="*" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/pdf" />
+            </intent-filter>
+        </activity> <!-- About -->
         <activity
             android:name=".AboutActivity"
             android:label="About"
-            android:parentActivityName="MainActivity_"
-            android:theme="@style/AppThemeNoActionBar">
+            android:parentActivityName=".MainActivity_"
+            android:theme="@style/Theme.Cyanea.Light.NoActionBar">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity_" />
-
         </activity>
-
-        <activity android:name=".MainIntroActivity"
-            android:label="@string/intro" />
-
-        <!-- Privacy Policy -->
         <activity
-            android:name=".PrivacyActivity"
-            android:label="Privacy Policy"
-            android:parentActivityName=".AboutActivity"
-            android:theme="@style/AppTheme">
+            android:name=".MainIntroActivity"
+            android:label="@string/intro" /> <!-- Contr -->
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".MainActivity_"
+            android:theme="@style/Theme.Cyanea.Light.DarkActionBar">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AboutActivity" />
-        </activity>
-
-        <!-- License Page -->
-        <activity
-            android:name=".LicenseActivity"
-            android:label="License"
-            android:parentActivityName=".AboutActivity"
-            android:theme="@style/AppTheme">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AboutActivity" />
+                android:value="MainActivity_" />
         </activity>
     </application>
 

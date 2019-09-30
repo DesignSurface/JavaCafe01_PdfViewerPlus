@@ -24,52 +24,66 @@
 
 package com.gsnathan.pdfviewer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.appcompat.app.AlertDialog;
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import io.github.tonnyl.whatsnew.WhatsNew;
+import io.github.tonnyl.whatsnew.item.WhatsNewItem;
 
-public class Utils extends AppCompatActivity{
+public class Utils {
 
-    public static void showNotice(Context context){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Developer Notice")
-                .setMessage(R.string.notice)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                    }
-                })
-                .setIcon(R.drawable.alert_icon)
-                .show();
+    public static boolean tempBool = false;
+
+    static void showLog(AppCompatActivity context) {
+        WhatsNew log = WhatsNew.newInstance(
+                new WhatsNewItem("Bottom Bar", "Removed FAB and replaced it with bottom bar", R.drawable.star_icon),
+                new WhatsNewItem("Bug Fixes", "Just some minor stuff", R.drawable.thumbs_icon)
+
+                );
+        log.setTitleColor(ContextCompat.getColor(context, R.color.colorAccent));
+        log.setTitleText(context.getResources().getString(R.string.appChangelog));
+        log.setButtonText(context.getResources().getString(R.string.buttonLog));
+        log.setButtonBackground(ContextCompat.getColor(context, R.color.colorPrimary));
+        log.setButtonTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+        log.setItemTitleColor(ContextCompat.getColor(context, R.color.colorAccent));
+        log.setItemContentColor(Color.parseColor("#808080"));
+
+        log.show(context.getSupportFragmentManager(), "Log");
     }
 
     public static String getAndroidVersion() {
         String release = Build.VERSION.RELEASE;
         int sdkVersion = Build.VERSION.SDK_INT;
-        return "Android SDK: " + sdkVersion + " (" + release +")";
+        return "Android SDK: " + sdkVersion + " (" + release + ")";
     }
 
-    public static Intent emailIntent(String emailAddress, String subject, String text, String title)
-    {
+    static Intent emailIntent(String emailAddress, String subject, String text, String title) {
         Intent email = new Intent(Intent.ACTION_SEND);
         email.setType("text/email");
-        email.putExtra(Intent.EXTRA_EMAIL, new String[] { emailAddress });
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
         email.putExtra(Intent.EXTRA_SUBJECT, subject);
         email.putExtra(Intent.EXTRA_TEXT, text);
         return Intent.createChooser(email, title);
     }
 
-    public static Intent emailIntent(String subject, String text, String title, Uri filePath)
-    {
+    static Intent emailIntent(String subject, String text, String title, Uri filePath) {
         Intent email = new Intent(Intent.ACTION_SEND);
         email.setType("text/email");
         email.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -78,37 +92,36 @@ public class Utils extends AppCompatActivity{
         return Intent.createChooser(email, title);
     }
 
-    public static Intent linkIntent(String url)
-    {
+    static Intent linkIntent(String url) {
         Intent link = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         return link;
     }
 
-    public static Intent navIntent(Context context, Class activity)
-    {
+    static Intent navIntent(Context context, Class activity) {
         Intent navigate = new Intent(context, activity);
-        return  navigate;
+        return navigate;
     }
 
-    public static String getAppVersion()
-    {
+    static String getAppVersion() {
         return BuildConfig.VERSION_NAME;
     }
 
-    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            drawable = (DrawableCompat.wrap(drawable)).mutate();
+    static void readFromInputStreamToOutputStream (InputStream inputStream, OutputStream outputStream) throws IOException {
+        byte[] buffer = new byte[8 * 1024];
+        int bytesRead = inputStream.read(buffer);
+        while (bytesRead > -1) {
+            outputStream.write(buffer, 0, bytesRead);
+            bytesRead = inputStream.read(buffer);
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
+        outputStream.flush();
+        outputStream.close();
     }
 
-
+    static File createFileFromInputStream (File cacheDir, String fileName, InputStream inputStream) throws IOException {
+        File file = File.createTempFile(fileName, null, cacheDir);
+        OutputStream outputStream = new FileOutputStream(file);
+        Utils.readFromInputStreamToOutputStream(inputStream, outputStream);
+        return file;
+    }
 }

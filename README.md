@@ -1,39 +1,40 @@
-# ![Pdf Viewer Plus](https://github.com/JavaCafe01/PdfViewer/blob/master/app/src/main/res/mipmap-mdpi/ic_launcher.png "Pdf Viewer Unlimited") Pdf Viewer Plus 
+# Pdf Viewer Plus 
 
 [//]: # (Shields)
 
-[![author](https://img.shields.io/badge/author-Gokul%20Swaminathan-lightgrey.svg?style=flat-square)](https://github.com/JavaCafe01)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/JavaCafe01/PdfViewer/blob/master/LICENSE) [![platform](https://img.shields.io/badge/platform-Android-green.svg?style=flat-square)](https://www.android.com/)
-
+[![Travis Build Status](https://travis-ci.com/JavaCafe01/PdfViewer.svg?branch=master)](https://travis-ci.com/JavaCafe01/PdfViewer)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/JavaCafe01/PdfViewer/blob/master/LICENSE)
+[![PayPal donation](https://img.shields.io/badge/donate-paypal-yellow.svg)](https://www.paypal.me/gsnathan)
 
 ## Download
 
-[Github Releases](https://github.com/JavaCafe01/PdfViewer/releases)
+<a href="https://play.google.com/store/apps/details?id=com.gsnathan.pdfviewer"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download on Google Play" height="100"></a><a href="https://f-droid.org/en/packages/com.gsnathan.pdfviewer"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100"></a>
 
-<a href="https://play.google.com/store/apps/details?id=com.gsnathan.pdfviewer">
-    <img alt="Get it on Google Play"
-        height="80"
-        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a>
-
+<a href="https://github.com/JavaCafe01/PdfViewer/releases/latest"><img src="http://yt3dl.net/images/apk-download-badge.png" alt="Get it on Github" height="100"></a>
 
 ## Screenshots
 
-| Main Page | Settings Page |
-|:-:|:-:|
-| <img src ="./images/mainpage.png" width="190" height="340"/> | <img src ="./images/mainpage2.png" width="190" height="340"/> |
-| [`MainActivity.java`](https://github.com/JavaCafe01/PdfViewer/blob/master/app/src/main/java/com/gsnathan/pdfviewer/MainActivity.java) |  [`MainActivity.java`](https://github.com/JavaCafe01/PdfViewer/blob/master/app/src/main/java/com/gsnathan/pdfviewer/MainActivity.java)  | 
-
+| Main Page |
+|:-:|
+| <img src ="./images/mainpage.png" width="190" height="340"/> |
+| [`MainActivity.java`](https://github.com/JavaCafe01/PdfViewer/blob/master/app/src/main/java/com/gsnathan/pdfviewer/MainActivity.java) |
 
 ## Contribute
 
 You can contribute to this project in many ways:
 * Fork and make pull requests
-* Help to translate the application (if so contact me --> gsnathandev@outlookcom)
+* Help to translate the application (if so contact me --> gokulswamilive@gmail.com)
 
-## Donate
+### Special Thanks!
 
-[Buy the developer a coffee](https://www.paypal.me/gsnathan)
+| Github Users |
+| ------------- |
+| [Etamuk](https://github.com/Etamuk)  |
+| [Raspbeguy](https://github.com/raspbeguy)  |
+| [Greynar](https://github.com/Greynar)  |
+| [ORelio](https://github.com/ORelio)  |
+| [PFayoux](https://github.com/PFayoux)  |
+
 
 ## License
 

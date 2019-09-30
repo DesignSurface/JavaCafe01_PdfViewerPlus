@@ -49,8 +49,7 @@ public class Utils {
 
     static void showLog(AppCompatActivity context) {
         WhatsNew log = WhatsNew.newInstance(
-                new WhatsNewItem("Settings", "A lot of PDF rendering settings have been added.", R.drawable.thumbs_icon),
-                new WhatsNewItem("Menu", "Brand new menu that holds all the options.", R.drawable.star_icon));
+                new WhatsNewItem("Bug Fixes", "Fixed back button crash on about page", R.drawable.thumbs_icon));
         log.setTitleColor(ContextCompat.getColor(context, R.color.colorAccent));
         log.setTitleText(context.getResources().getString(R.string.appChangelog));
         log.setButtonText(context.getResources().getString(R.string.buttonLog));
